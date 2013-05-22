@@ -7,11 +7,12 @@ import java.util.Scanner;
 
 public class BefungeSimulator {
     public static void main(String[] args) throws Exception {
-        // TODO: Add a GUI.
-        
         Befunge befunge = new Befunge();
         
-        PrintWriter out = new PrintWriter(System.out, true);
+        MainFrame mainFrame = new MainFrame(befunge);
+        mainFrame.setVisible(true);
+        
+        /*PrintWriter out = new PrintWriter(System.out, true);
         Scanner in = new Scanner(System.in);
         
         boolean display = false;
@@ -69,6 +70,6 @@ public class BefungeSimulator {
             done = !befunge.step(out, in);
         }
         
-        out.flush();
+        out.flush();*/
     }
 }

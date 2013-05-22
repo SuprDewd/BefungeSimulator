@@ -64,8 +64,8 @@ public class Befunge {
         }
     }
 
-    public static final int HEIGHT = 10;
-    public static final int WIDTH = 90;
+    public static final int HEIGHT = 20;
+    public static final int WIDTH = 20;
 
     private int pc_y;
     private int pc_x;
