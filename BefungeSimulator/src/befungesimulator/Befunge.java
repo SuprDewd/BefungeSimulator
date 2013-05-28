@@ -63,9 +63,14 @@ public class Befunge {
             }
         }
     }
+    
+    public interface InputReader {
+        public long nextLong();
+        public char nextChar();
+    }
 
-    public static final int HEIGHT = 20;
-    public static final int WIDTH = 20;
+    public static final int HEIGHT = 38;
+    public static final int WIDTH = 85;
 
     private int pc_y;
     private int pc_x;
@@ -139,7 +144,7 @@ public class Befunge {
         return res;
     }
 
-    public boolean step(PrintWriter out, Scanner in) throws Exception {
+    public String step(InputReader in) throws Exception {
         Value cur = this.board[this.pc_y][this.pc_x];
 
         if (cur.type != Value.Type.CHAR) {
@@ -150,6 +155,7 @@ public class Befunge {
         char curc = (char)(int)cur.getValue();
         int jumplen = 1;
         boolean done = false;
+        StringBuilder sb = new StringBuilder();
 
         if (this.string_mode) {
             if (curc == '"') {
@@ -266,13 +272,11 @@ public class Befunge {
                     break;
                 case '.':
                     a = this.pop();
-                    // TODO: Output value as integer.
-                    out.println("OUT: " + Long.toString(a.getValue()));
+                    sb.append(Long.toString(a.getValue()));
                     break;
                 case ',':
                     a = this.pop();
-                    // TODO: Output value as ASCII character.
-                    out.println("OUT: " + Character.toString((char)a.getValue()));
+                    sb.append(Character.toString((char)a.getValue()));
                     break;
                 case '#':
                     jumplen = 2;
@@ -301,16 +305,10 @@ public class Befunge {
                     this.board[(int)y.getValue()][(int)x.getValue()] = a;
                     break;
                 case '&':
-                    // TODO: Input value as integer.
-                    out.print("IN: ");
-                    out.flush();
                     this.push(new Value(in.nextLong(), Value.Type.INT));
                     break;
                 case '~':
-                    // TODO: Input value as ASCII character.
-                    out.print("IN: ");
-                    out.flush();
-                    this.push(new Value((char)System.in.read(), Value.Type.CHAR));
+                    this.push(new Value(in.nextChar(), Value.Type.CHAR));
                     break;
                 case '@':
                     done = true;
@@ -327,6 +325,6 @@ public class Befunge {
             this.pc_x = (this.pc_x + this.pc_dir.getDX() + Befunge.WIDTH) % Befunge.WIDTH;
         }
 
-        return !done;
+        return done ? null : sb.toString();
     }
 }
