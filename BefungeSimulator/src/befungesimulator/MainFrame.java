@@ -202,6 +202,9 @@ public class MainFrame extends javax.swing.JFrame {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 formKeyTyped(evt);
             }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 formKeyReleased(evt);
             }
@@ -343,41 +346,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-        if (!this.isRunning) {
-            switch (evt.getExtendedKeyCode()) {
-                case KeyEvent.VK_ENTER:
-                    this.focusBoardCell(this.editY+1, 0);
-                    break;
-                case KeyEvent.VK_LEFT:
-                    this.focusBoardCell(this.editY, this.editX-1);
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    this.focusBoardCell(this.editY, this.editX+1);
-                    break;
-                case KeyEvent.VK_DOWN:
-                    this.focusBoardCell(this.editY+1, this.editX);
-                    break;
-                case KeyEvent.VK_UP:
-                    this.focusBoardCell(this.editY-1, this.editX);
-                    break;
-                case KeyEvent.VK_BACK_SPACE:
-                    this.focusBoardCell(this.editY, this.editX-1);
-                    this.setBoardCellValue(this.editY, this.editX, new Befunge.Value(' ', Befunge.Value.Type.CHAR));
-                    break;
-                case KeyEvent.VK_DELETE:
-                    this.setBoardCellValue(this.editY, this.editX, new Befunge.Value(' ', Befunge.Value.Type.CHAR));
-                    break;
-                default:
-                    if (isPrintableChar(evt.getKeyChar()) || Character.isSpaceChar(evt.getKeyChar())) {
-                        this.setBoardCellValue(this.editY, this.editX, new Befunge.Value(evt.getKeyChar(), Befunge.Value.Type.CHAR));
-                        this.focusBoardCell(this.editY, this.editX+1);
-                    }
-            }
-        } else {
-            if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
-                btnStepActionPerformed(null);
-            }
-        }
+        
     }//GEN-LAST:event_formKeyReleased
 
     private void btnStartResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartResetActionPerformed
@@ -645,6 +614,44 @@ public class MainFrame extends javax.swing.JFrame {
         WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (!this.isRunning) {
+            switch (evt.getExtendedKeyCode()) {
+                case KeyEvent.VK_ENTER:
+                    this.focusBoardCell(this.editY+1, 0);
+                    break;
+                case KeyEvent.VK_LEFT:
+                    this.focusBoardCell(this.editY, this.editX-1);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    this.focusBoardCell(this.editY, this.editX+1);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    this.focusBoardCell(this.editY+1, this.editX);
+                    break;
+                case KeyEvent.VK_UP:
+                    this.focusBoardCell(this.editY-1, this.editX);
+                    break;
+                case KeyEvent.VK_BACK_SPACE:
+                    this.focusBoardCell(this.editY, this.editX-1);
+                    this.setBoardCellValue(this.editY, this.editX, new Befunge.Value(' ', Befunge.Value.Type.CHAR));
+                    break;
+                case KeyEvent.VK_DELETE:
+                    this.setBoardCellValue(this.editY, this.editX, new Befunge.Value(' ', Befunge.Value.Type.CHAR));
+                    break;
+                default:
+                    if (isPrintableChar(evt.getKeyChar()) || Character.isSpaceChar(evt.getKeyChar())) {
+                        this.setBoardCellValue(this.editY, this.editX, new Befunge.Value(evt.getKeyChar(), Befunge.Value.Type.CHAR));
+                        this.focusBoardCell(this.editY, this.editX+1);
+                    }
+            }
+        } else {
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+                btnStepActionPerformed(null);
+            }
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
